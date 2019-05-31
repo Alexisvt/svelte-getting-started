@@ -3,8 +3,6 @@
   export let jobTitle;
   export let description;
   export let userImage;
-
-  $: console.log("from the child", jobTitle);
 </script>
 
 <style>
@@ -31,6 +29,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .thumb-placeholder {
+    background: #ccc;
   }
 
   .user-data {
@@ -63,7 +65,7 @@
 
 <div class="contact-card">
   <header>
-    <div class="thumb">
+    <div class="thumb" class:thumb-placeholder={!userImage}>
       <img src={userImage} alt={userName} />
     </div>
     <div class="user-data">
@@ -72,6 +74,6 @@
     </div>
   </header>
   <div class="description">
-    <p>{description}</p>
+    <p> {description} </p>
   </div>
 </div>

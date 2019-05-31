@@ -9,8 +9,6 @@
 
   $: uppercaseName = name.toUpperCase();
 
-  $: console.log("from the parent component", jobTitle);
-
   function incrementAge() {
     age += 1;
   }
@@ -34,7 +32,12 @@
 <button on:click={incrementAge}>Change Age</button>
 <input type="text" bind:value={name} />
 <input type="text" bind:value={jobTitle} />
-<input type="text" bind:value={description} />
 <input type="text" bind:value={userImage} />
+<textarea
+  name="description"
+  id="description"
+  cols="30"
+  rows="10"
+  bind:value={description} />
 
 <ContactCard userName={name} {jobTitle} {description} {userImage} />
