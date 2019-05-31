@@ -1,3 +1,12 @@
+<script>
+  export let userName;
+  export let jobTitle;
+  export let description;
+  export let userImage;
+
+  $: console.log("from the child", jobTitle);
+</script>
+
 <style>
   .contact-card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -29,6 +38,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-left: 1rem;
   }
 
   h1 {
@@ -54,14 +64,14 @@
 <div class="contact-card">
   <header>
     <div class="thumb">
-      <img src="" alt="" />
+      <img src={userImage} alt={userName} />
     </div>
     <div class="user-data">
-      <h1>User Name</h1>
-      <h2>Job Title</h2>
+      <h1>{userName}</h1>
+      <h2>{jobTitle}</h2>
     </div>
   </header>
   <div class="description">
-    <p>A short description</p>
+    <p>{description}</p>
   </div>
 </div>

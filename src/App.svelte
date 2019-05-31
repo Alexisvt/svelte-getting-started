@@ -2,9 +2,14 @@
   import ContactCard from "./ContactCard.svelte";
 
   let name = "Alexis";
+  let jobTitle = "";
+  let description = "";
   let age = 33;
+  let userImage = "";
 
   $: uppercaseName = name.toUpperCase();
+
+  $: console.log("from the parent component", jobTitle);
 
   function incrementAge() {
     age += 1;
@@ -27,7 +32,9 @@
 
 <h1>Hello {uppercaseName}, my age is {age}!</h1>
 <button on:click={incrementAge}>Change Age</button>
-<!-- <input type="text" value={name} on:input={nameInput} /> -->
 <input type="text" bind:value={name} />
+<input type="text" bind:value={jobTitle} />
+<input type="text" bind:value={description} />
+<input type="text" bind:value={userImage} />
 
-<ContactCard />
+<ContactCard userName={name} {jobTitle} {description} {userImage} />
