@@ -1,10 +1,42 @@
 <script>
   import ContactCard from "./ContactCard.svelte";
+  import { Contact } from "./models";
 
   let name = "Max";
   let title = "";
   let image = "";
   let description = "";
+  let formState = "empty";
+
+  let createdContacts = [];
+
+  $: isContactsEmpty = !createdContacts.length;
+
+  function addContact() {
+    if (
+      !name.trim().length ||
+      !title.trim().length ||
+      !image.trim().length ||
+      !description.trim().length
+    ) {
+      formState = "invalid";
+      return;
+    }
+    createdContacts = [
+      ...createdContacts,
+      new Contact(name, title, image, description)
+    ];
+  }
+
+  function deleteFirst() {
+    createdContacts.shift();
+    createdContacts = [...createdContacts];
+  }
+
+  function deleteLast() {
+    createdContacts.pop();
+    createdContacts = [...createdContacts];
+  }
 </script>
 
 <style>
@@ -33,4 +65,23 @@
   </div>
 </div>
 
-<ContactCard userName={name} jobTitle={title} {description} userImage={image} />
+<button on:click={addContact}>Add contact card</button>
+<button on:click={deleteFirst} disabled={isContactsEmpty}>Delete First</button>
+<button on:click={deleteLast} disabled={isContactsEmpty}>Delete Last</button>
+
+{#if formState === 'invalid'}
+  <p>Invalid input.</p>
+{:else}
+  <p>Please enter some data and hit the button</p>
+{/if}
+
+{#each createdContacts as contact, i}
+  <h2># {i + 1}</h2>
+  <ContactCard
+    userName={contact.name}
+    jobTitle={contact.jobTitle}
+    description={contact.desc}
+    userImage={contact.imageUrl} />
+{:else}
+  <p>Please start adding some contacts, we found none!</p>
+{/each}
