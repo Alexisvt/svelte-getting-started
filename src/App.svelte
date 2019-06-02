@@ -24,18 +24,16 @@
     }
     createdContacts = [
       ...createdContacts,
-      new Contact(name, title, image, description)
+      new Contact(Math.random(), name, title, image, description)
     ];
   }
 
   function deleteFirst() {
-    createdContacts.shift();
-    createdContacts = [...createdContacts];
+    createdContacts = createdContacts.slice(1);
   }
 
   function deleteLast() {
-    createdContacts.pop();
-    createdContacts = [...createdContacts];
+    createdContacts = createdContacts.slice(0, -1);
   }
 </script>
 
@@ -75,7 +73,7 @@
   <p>Please enter some data and hit the button</p>
 {/if}
 
-{#each createdContacts as contact, i}
+{#each createdContacts as contact, i (contact.id)}
   <h2># {i + 1}</h2>
   <ContactCard
     userName={contact.name}
